@@ -37,7 +37,26 @@ img {
   font-weight: bold;
 }
 
-.bhaira{
-    font-weight: bold;
-    color: #fff;
+.bhaira {
+  font-weight: bold;
+  color: #fff;
+}
+
+#startBtn {
+  background: #ffffff;
+  color: #224432;
+  border: none;
+  padding: 15px 13px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#startBtn:hover {
+  background: #BAF915;
+}
+
+#startBtn i{
+  font-size: 20px;
 }
