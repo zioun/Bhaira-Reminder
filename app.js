@@ -1,15 +1,15 @@
 const flash = document.getElementById('flash');
 
-// ৪ মিনিট ৪৫ সেকেন্ড = মোট সেকেন্ড
-const countdownTime = (4 * 60) + 45;
+// ৪ মিনিট
+const countdownTime = (4 * 60);
 
-// অ্যালার্ম সাউন্ড
-let alarmSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+// অ্যালার্ম সাউন্ড (ফাইল একই ফোল্ডারে থাকতে হবে)
+let alarmSound = new Audio("./mixkit.wav");
 
 function startCountdown() {
   let endTime = Date.now() + countdownTime * 1000;
 
-  setInterval(() => {
+  let timer = setInterval(() => {
     let now = Date.now();
     let timeLeft = Math.max(0, Math.floor((endTime - now) / 1000));
 
@@ -18,18 +18,22 @@ function startCountdown() {
     flash.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
     if (timeLeft <= 0) {
+      clearInterval(timer);
+
+      // অ্যালার্ম দেখানো ও বাজানো
       flash.textContent = "⏰ Alarm!";
       flash.classList.add('alarm');
       alarmSound.currentTime = 0;
       alarmSound.play();
 
-      // ১ সেকেন্ড পরে আবার শুরু
+      // ১ সেকেন্ড পরে আবার নতুন কাউন্টডাউন শুরু
       setTimeout(() => {
         flash.classList.remove('alarm');
-        endTime = Date.now() + countdownTime * 1000;
+        startCountdown();
       }, 1000);
     }
-  }, 250); // প্রতি 0.25 সেকেন্ডে আপডেট
+  }, 250);
 }
 
+// পেজ লোড হলে সাথে সাথে শুরু
 startCountdown();
